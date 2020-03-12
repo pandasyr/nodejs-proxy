@@ -1,4 +1,4 @@
-import stringReplaceStream from 'string-replace-stream';
+var stringReplaceStream = require('string-replace-stream').stringReplaceStream;
 
 var http = require('http'),
     inspect = require('util').inspect,
