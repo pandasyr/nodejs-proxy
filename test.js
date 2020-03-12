@@ -1,4 +1,5 @@
 var http = require('http'),
+    inspect = require('util').inspect,
     express = require('express'),
     httpProxy = require('http-proxy');
 
@@ -15,8 +16,10 @@ function create(target, port) {
       body = body.replace(new RegExp('https://' + target + '/',"g"), '/');
       res._send_(body);
     }
-    proxy.web(req, res, { target: 'http://' + target});
-    next();
+    proxy.web(req, res, { target: 'http://' + target, selfHandleResponse: false, followRedirects: true});
+    proxy.on('proxyRes', function (proxyRes, req, res) {
+      console.log('RAW Response from the target', inspect(proxyRes));
+    });
   });
   app.listen(port);
 }
