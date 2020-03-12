@@ -1,4 +1,5 @@
 var replace = require('stream-replace');
+var web_o = Object.values(require('http-proxy/lib/http-proxy/passes/web-outgoing'));
 
 var http = require('http'),
     inspect = require('util').inspect,
@@ -12,8 +13,13 @@ function create(target, port) {
 
   app.use(function (req, res, next) {
     req.headers.host = target;
-    proxy.web(req, res, { target: 'http://' + target, selfHandleResponse: true, followRedirects: true});
+    const options = { target: 'http://' + target, selfHandleResponse: true, followRedirects: true};
+    proxy.web(req, res, options);
     proxy.on('proxyRes', function (proxyRes, req, res) {
+        // https://github.com/http-party/node-http-proxy/issues/1263
+        for(var i=0; i < web_o.length; i++) {
+          if(web_o[i](req, res, proxyRes, options)) { break; }
+        }
         //var body = new Buffer('');
         //proxyRes.on('data', data => body = Buffer.concat([body, data]));
         //proxyRes.on('end', () => {
