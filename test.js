@@ -29,8 +29,8 @@ function create(target, port) {
 //            res.send(body);
 //        })
         proxyRes
-           .pipe(replace(new RegExp('http://' + target + '/', 'g'), '/'))
-           .pipe(replace(new RegExp('https://' + target + '/', 'g'), '/'))
+           //.pipe(replace(new RegExp('http://' + target + '/', 'g'), '/'))
+           //.pipe(replace(new RegExp('https://' + target + '/', 'g'), '/'))
            .pipe(res);
     });
   });
