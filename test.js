@@ -29,7 +29,7 @@ function create(target, port) {
 //            res.send(body);
 //        })
         proxyRes
-           .pipe(replace('1234543', '1234543')
+           .pipe(replace('1234543', '1234543'))
            //.pipe(replace(new RegExp('http://' + target + '/', 'g'), '/'))
            //.pipe(replace(new RegExp('https://' + target + '/', 'g'), 'https://' + target + '/'))
            .pipe(res);
