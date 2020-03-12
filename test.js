@@ -1,20 +1,22 @@
 var http = require('http'),
-    connect = require('connect'),
+    express = require('express'),
     httpProxy = require('http-proxy');
 
 var proxy = httpProxy.createProxyServer({followRedirects: true});
 
 function create(target, port) {
-  let app = connect();
+  let app = express();
 
-  app.use(function (req, res) {
+  app.use(function (req, res, next) {
     req.headers.host = target;
     proxy.web(req, res, { target: 'http://' + target});
+    next();
   });
-  app.use(function (req, res) {
+  app.use(function (req, res, next) {
     console.log(JSON.stringify(res));
+    next();
   });
-  http.createServer(app).listen(port);
+  app.listen(port);
 }
 
 create('www.google.com', 6050);
