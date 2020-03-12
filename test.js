@@ -30,7 +30,7 @@ function create(target, port) {
 //        })
         proxyRes
            //.pipe(replace(new RegExp('http://' + target + '/', 'g'), '/'))
-           .pipe(replace(new RegExp('https://' + target + '/', 'g'), '/'))
+           .pipe(replace(new RegExp('https://' + target + '/', 'g'), 'https://' + target + '/'))
            .pipe(res);
     });
   });
