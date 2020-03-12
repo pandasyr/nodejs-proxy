@@ -40,4 +40,4 @@ function create(target, port) {
 
 create('www.google.com', 6050);
 create('forums.huaren.us', 6051);
-create('www.backchina.com', 6052);
+create('backchina.com', 6052);
