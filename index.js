@@ -10,5 +10,5 @@ function create(target, port) {
   }).listen(port);
 }
 
-create('www.google.com', 80);
+create('www.google.com', 5050);
 create('forums.huaren.us', 5051);
