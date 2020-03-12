@@ -15,8 +15,8 @@ function create(target, port) {
     proxy.web(req, res, { target: 'http://' + target, selfHandleResponse: true, followRedirects: true});
     proxy.on('proxyRes', function (proxyRes, req, res) {
         proxyRes
-            .pipe(replace(new RegExp('http://' + target + '/', 'g'), '/'))
-            .pipe(replace(new RegExp('https://' + target + '/', 'g'), '/'))
+           // .pipe(replace(new RegExp('http://' + target + '/', 'g'), '/'))
+           // .pipe(replace(new RegExp('https://' + target + '/', 'g'), '/'))
             .pipe(res);
     });
   });
