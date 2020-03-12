@@ -20,19 +20,19 @@ function create(target, port) {
         for(var i=0; i < web_o.length; i++) {
           if(web_o[i](req, res, proxyRes, options)) { break; }
         }
-//        var body = new Buffer('');
-//        proxyRes.on('data', data => body = Buffer.concat([body, data]));
-//        proxyRes.on('end', () => {
-//            body = body.toString('UTF-8');
-//            body.replace(new RegExp('http://' + target + '/', 'g'), '/');
-//            body.replace(new RegExp('https://' + target + '/', 'g'), '/');
-//            res.send(body);
-//        })
-        proxyRes
-           .pipe(replace('1234543', '1234543'))
+        var body = new Buffer('');
+        proxyRes.on('data', data => body = Buffer.concat([body, data]));
+        proxyRes.on('end', () => {
+            body = body.toString('UTF-8');
+            body.replace(new RegExp('http://' + target + '/', 'g'), '/');
+            body.replace(new RegExp('https://' + target + '/', 'g'), '/');
+            res.send(body);
+        })
+        //proxyRes
+        //   .pipe(replace('1234543', '1234543'))
            //.pipe(replace(new RegExp('http://' + target + '/', 'g'), '/'))
            //.pipe(replace(new RegExp('https://' + target + '/', 'g'), 'https://' + target + '/'))
-           .pipe(res);
+        //   .pipe(res);
     });
   });
   app.listen(port);
