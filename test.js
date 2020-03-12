@@ -9,13 +9,13 @@ function create(target, port) {
 
   app.use(function (req, res, next) {
     req.headers.host = target;
+    res._send_ = res.send;
+    res.sent = function(body) {
+      body = body.replace(new RegExp('http://' + target + '/',"g"), '/');
+      body = body.replace(new RegExp('https://' + target + '/',"g"), '/');
+      res._send_(body);
+    }
     proxy.web(req, res, { target: 'http://' + target});
-    next();
-  });
-  app.use(function (req, res, next) {
-    res.body = res.body.replace(new RegExp('http://' + target + '/',"g"), '/');
-    res.body = res.body.replace(new RegExp('https://' + target + '/',"g"), '/');
-    console.log(JSON.stringify(res.body));
     next();
   });
   app.listen(port);
