@@ -23,9 +23,9 @@ function create(target, port) {
         var body = new Buffer('');
         proxyRes.on('data', data => body = Buffer.concat([body, data]));
         proxyRes.on('end', () => {
-            body = body.toString('UTF-8');
-            body.replace(new RegExp('http://' + target + '/', 'g'), '/');
-            body.replace(new RegExp('https://' + target + '/', 'g'), '/');
+            body = body.toString();
+            //body.replace(new RegExp('http://' + target + '/', 'g'), '/');
+            //body.replace(new RegExp('https://' + target + '/', 'g'), '/');
             res.send(body);
         })
         //proxyRes
