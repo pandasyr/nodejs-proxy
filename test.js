@@ -17,5 +17,5 @@ function create(target, port) {
   http.createServer(app).listen(port);
 }
 
-create('www.google.com', 5052);
-create('forums.huaren.us', 5053);
+create('www.google.com', 6050);
+create('forums.huaren.us', 6051);
