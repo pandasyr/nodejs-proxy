@@ -14,18 +14,18 @@ function create(target, port) {
     req.headers.host = target;
     proxy.web(req, res, { target: 'http://' + target, selfHandleResponse: true, followRedirects: true});
     proxy.on('proxyRes', function (proxyRes, req, res) {
-        var body = new Buffer('');
-        proxyRes.on('data', data => body = Buffer.concat([body, data]));
-        proxyRes.on('end', () => {
-            body = body.toString('UTF-8');
-            body.replace(new RegExp('http://' + target + '/', 'g'), '/');
-            body.replace(new RegExp('https://' + target + '/', 'g'), '/');
-            res.write(body);
-        })
-        //proxyRes
+        //var body = new Buffer('');
+        //proxyRes.on('data', data => body = Buffer.concat([body, data]));
+        //proxyRes.on('end', () => {
+        //    body = body.toString('UTF-8');
+        //    body.replace(new RegExp('http://' + target + '/', 'g'), '/');
+        //    body.replace(new RegExp('https://' + target + '/', 'g'), '/');
+        //    res.write(body);
+        //})
+        proxyRes
            // .pipe(replace(new RegExp('http://' + target + '/', 'g'), '/'))
            // .pipe(replace(new RegExp('https://' + target + '/', 'g'), '/'))
-           // .pipe(res);
+           .pipe(res);
     });
   });
   app.listen(port);
