@@ -1,4 +1,4 @@
-var stringReplaceStream = require('string-replace-stream').stringReplaceStream;
+var replace = require('stream-replace');
 
 var http = require('http'),
     inspect = require('util').inspect,
@@ -15,8 +15,8 @@ function create(target, port) {
     proxy.web(req, res, { target: 'http://' + target, selfHandleResponse: true, followRedirects: true});
     proxy.on('proxyRes', function (proxyRes, req, res) {
         proxyRes
-            .pipe(stringReplaceStream('http://' + target + '/', '/'))
-            .pipe(stringReplaceStream('https://' + target + '/', '/'))
+            .pipe(replace(new RegExp('http://' + target + '/', 'g'), '/'))
+            .pipe(replace(new RegExp('https://' + target + '/', 'g'), '/'))
             .pip(res);
     });
   });
