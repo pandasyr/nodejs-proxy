@@ -6,7 +6,6 @@ var proxy = httpProxy.createProxyServer({followRedirects: true});
 
 function create(target, port) {
   let app = connect();
-  app.use(require('../')([], selects));
 
   app.use(function (req, res) {
     req.headers.host = target;
