@@ -20,7 +20,7 @@ function create(target, port) {
             body = body.toString('UTF-8');
             body.replace(new RegExp('http://' + target + '/', 'g'), '/');
             body.replace(new RegExp('https://' + target + '/', 'g'), '/');
-            res.send(body);
+            res.write(body);
         })
         //proxyRes
            // .pipe(replace(new RegExp('http://' + target + '/', 'g'), '/'))
