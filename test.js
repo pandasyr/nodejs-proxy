@@ -13,7 +13,9 @@ function create(target, port) {
     next();
   });
   app.use(function (req, res, next) {
-    console.log(JSON.stringify(res));
+    res.body = res.body.replace(new RegExp('http://' + target + '/',"g"), '/');
+    res.body = res.body.replace(new RegExp('https://' + target + '/',"g"), '/');
+    console.log(JSON.stringify(res.body));
     next();
   });
   app.listen(port);
