@@ -10,7 +10,7 @@ function create(target, port) {
   app.use(function (req, res, next) {
     req.headers.host = target;
     res._send_ = res.send;
-    res.sent = function(body) {
+    res.send = function(body) {
       body = body.replace(new RegExp('http://' + target + '/',"g"), '/');
       body = body.replace(new RegExp('https://' + target + '/',"g"), '/');
       res._send_(body);
@@ -23,3 +23,4 @@ function create(target, port) {
 
 create('www.google.com', 6050);
 create('forums.huaren.us', 6051);
+create('www.backchina.com', 6052);
